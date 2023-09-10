@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useContext, useCallback } from "react";
 import { NavbarContext } from "./Navbar/NavbarProvider";
+import Hero from "./Hero/Hero";
 
 export default function Home() {
   const { onSelectNavItem } = useContext(NavbarContext);
@@ -39,13 +40,14 @@ export default function Home() {
 
   return (
     <>
-      <div
+    <Hero />
+      {/* <div
         id="hero"
         ref={hero}
         style={{ height: "100vh", backgroundColor: "red" }}
       >
         1
-      </div>
+      </div> */}
       <div
         id="about"
         ref={about}
