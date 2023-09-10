@@ -1,9 +1,9 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Source_Code_Pro } from "next/font/google";
 import NavbarProvider from "./Navbar/NavbarProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+const sourceCode = Source_Code_Pro({ subsets: ["latin"], weight: ["400"] });
 
 export const metadata: Metadata = {
   title: "Ajay.Dev",
@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={sourceCode.className}>
         <NavbarProvider>{children}</NavbarProvider>
       </body>
     </html>

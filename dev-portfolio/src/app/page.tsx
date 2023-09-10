@@ -1,18 +1,25 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext, useCallback } from "react";
+import { NavbarContext } from "./Navbar/NavbarProvider";
 
 export default function Home() {
-  const one = useRef(null);
-  const two = useRef(null);
-  const three = useRef(null);
+  const { selectedNavItem, onSelectNavItem } = useContext(NavbarContext);
+  const hero = useRef(null);
+  const about = useRef(null);
+  const skills = useRef(null);
 
-  const callback = (entries: any) => {
-    entries.forEach((entry: any) => {
-      if (entry.isIntersecting) {
-        console.log(entry.target.id);
-      }
-    });
-  };
+  console.log({ selectedNavItem });
+
+  const observerCallback = useCallback(
+    (entries: any) => {
+      entries.forEach((entry: any) => {
+        if (entry.isIntersecting) {
+          onSelectNavItem(entry.target.id);
+        }
+      });
+    },
+    [onSelectNavItem]
+  );
   const options = {
     root: null,
     rootMargin: "0px",
@@ -20,33 +27,37 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const observer = new IntersectionObserver(callback, options);
-    if (one.current && two.current && three.current) {
-      observer.observe(one.current);
-      observer.observe(two.current);
-      observer.observe(three.current);
+    const observer = new IntersectionObserver(observerCallback, options);
+    if (hero.current && about.current && skills.current) {
+      observer.observe(hero.current);
+      observer.observe(about.current);
+      observer.observe(skills.current);
     }
 
     return () => {
       observer.disconnect();
     };
-  }, [one, two, three]);
+  }, [hero, about, skills]);
 
   return (
     <>
-      <div id="1" ref={one} style={{ height: "100vh", backgroundColor: "red" }}>
+      <div
+        id="hero"
+        ref={hero}
+        style={{ height: "100vh", backgroundColor: "red" }}
+      >
         1
       </div>
       <div
-        id="2"
-        ref={two}
+        id="about"
+        ref={about}
         style={{ height: "100vh", backgroundColor: "yellow" }}
       >
         2
       </div>
       <div
-        id="3"
-        ref={three}
+        id="skills"
+        ref={skills}
         style={{ height: "100vh", backgroundColor: "green" }}
       >
         3

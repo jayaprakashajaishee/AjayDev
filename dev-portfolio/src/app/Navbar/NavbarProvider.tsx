@@ -1,29 +1,47 @@
 "use client";
-import React, { createContext } from "react";
+import Link from "next/link";
+import React, { createContext, useState } from "react";
 import styled, { css } from "styled-components";
+import { navbarItems } from "../constants/navbarItems";
 
 interface INavbar {
-  testValue?: number;
+  selectedNavItem: string;
+  onSelectNavItem: (id: string) => void;
 }
 
 type props = {
   children?: React.ReactNode;
 };
 
-const defaultValue: INavbar = { testValue: 0 };
+const defaultValue: INavbar = {
+  selectedNavItem: "",
+  onSelectNavItem: () => {},
+};
 
 export const NavbarContext = createContext<INavbar>(defaultValue);
 
 const NavbarProvider: React.FC<props> = ({ children }) => {
+  const [selectedNavItem, setSelectedNavItem] = useState("hero");
+
+  const onSelectNavItem = (id: string) => {
+    setSelectedNavItem(id);
+  };
+
   return (
-    <NavbarContext.Provider value={{ testValue: 1000 }}>
+    <NavbarContext.Provider value={{ selectedNavItem, onSelectNavItem }}>
       <Navbar>
-        <div>AJAY_DEV</div>
-        <div style={{ display: "flex" }}>
-          <NavbarButtons>1</NavbarButtons>
-          <NavbarButtons>2</NavbarButtons>
-          <NavbarButtons>3</NavbarButtons>
-        </div>
+        <div>Ajaygopal Jayaprakash</div>
+        <nav style={{ display: "flex" }}>
+          <NavbarButtons selected={selectedNavItem === navbarItems.hero}>
+            <Link href="#home">Home</Link>
+          </NavbarButtons>
+          <NavbarButtons selected={selectedNavItem === navbarItems.about}>
+            <Link href="#about">About</Link>
+          </NavbarButtons>
+          <NavbarButtons selected={selectedNavItem === navbarItems.skills}>
+            <Link href="#skills">Skills</Link>
+          </NavbarButtons>
+        </nav>
       </Navbar>
       <div>{children}</div>
     </NavbarContext.Provider>
