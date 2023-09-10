@@ -40,14 +40,14 @@ export default function Home() {
 
   return (
     <>
-    <Hero />
-      {/* <div
+      {/* <Hero ref={hero} /> */}
+      <div
         id="hero"
         ref={hero}
         style={{ height: "100vh", backgroundColor: "red" }}
       >
         1
-      </div> */}
+      </div>
       <div
         id="about"
         ref={about}

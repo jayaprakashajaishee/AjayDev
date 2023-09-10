@@ -2,8 +2,12 @@ import React from "react";
 import { styled } from "styled-components";
 import { colors } from "../constants/colors";
 
-function Hero() {
-  return <HeroDiv id="home">Hero</HeroDiv>;
+function Hero(props: any) {
+  return (
+    <HeroDiv ref={props.ref} id="home">
+      Hero
+    </HeroDiv>
+  );
 }
 
 export default Hero;
