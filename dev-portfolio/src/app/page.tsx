@@ -3,12 +3,10 @@ import React, { useEffect, useRef, useContext, useCallback } from "react";
 import { NavbarContext } from "./Navbar/NavbarProvider";
 
 export default function Home() {
-  const { selectedNavItem, onSelectNavItem } = useContext(NavbarContext);
+  const { onSelectNavItem } = useContext(NavbarContext);
   const hero = useRef(null);
   const about = useRef(null);
   const skills = useRef(null);
-
-  console.log({ selectedNavItem });
 
   const observerCallback = useCallback(
     (entries: any) => {

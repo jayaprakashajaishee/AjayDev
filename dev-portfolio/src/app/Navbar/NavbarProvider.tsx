@@ -3,6 +3,8 @@ import Link from "next/link";
 import React, { createContext, useState } from "react";
 import styled, { css } from "styled-components";
 import { navbarItems } from "../constants/navbarItems";
+import { motion } from "framer-motion";
+import { colors } from "../constants/colors";
 
 interface INavbar {
   selectedNavItem: string;
@@ -29,8 +31,18 @@ const NavbarProvider: React.FC<props> = ({ children }) => {
 
   return (
     <NavbarContext.Provider value={{ selectedNavItem, onSelectNavItem }}>
-      <Navbar>
-        <div>Ajaygopal Jayaprakash</div>
+      <Navbar
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 100 }}
+        transition={{ ease: "easeIn" }}
+      >
+        <motion.div
+          layout
+          style={{ fontSize: "large", fontWeight: "bold" }}
+          whileHover={{ color: colors.accent }}
+        >
+          <Link href="#home">AJAY|DEV</Link>
+        </motion.div>
         <nav style={{ display: "flex" }}>
           <NavbarButtons selected={selectedNavItem === navbarItems.hero}>
             <Link href="#home">Home</Link>
@@ -48,17 +60,18 @@ const NavbarProvider: React.FC<props> = ({ children }) => {
   );
 };
 
-const Navbar = styled.div`
+const Navbar = styled(motion.div)`
   overflow: hidden;
   position: fixed;
   top: 0;
   height: 50px;
   width: 100%;
-  background-color: white;
+  background-color: ${colors.light};
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding-left: 10%;
+  padding-right: 10%;
 `;
 
 const NavbarButtons = styled.div<{ selected?: boolean }>`
